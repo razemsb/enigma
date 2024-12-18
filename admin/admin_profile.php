@@ -37,32 +37,32 @@ $section = isset($_GET['section']) ? $_GET['section'] : 'none';
                         <span class="fs-4">Enigma</span>
                     </a>
                     <div class="dropdown">
-                            <a class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" href="#" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="fs-5 ms-2 "><?= $_SESSION['user_login'] ?></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser">
                                 <?php if($section != 'none'): ?>
-                                <li><a class="dropdown-item me-3 py-2 text-dark text-decoration-none" href="?section=none">Профиль</a></li>
+                                <li><a class="dropdown-item me-3 py-2 text-decoration-none" href="?section=none">Профиль</a></li>
                                 <?php endif; ?>
-                                <li><a class="dropdown-item me-3 py-2 text-dark text-decoration-none" href="?section=tickets">Тикеты</a></li>
+                                <li><a class="dropdown-item me-3 py-2 text-decoration-none" href="?section=tickets">Тикеты</a></li>
                             </ul>
                         </div>
 
                     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">          
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../index">Главная</a>
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../catalog">Каталог</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../index">Главная</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../catalog">Каталог</a>
                         <?php if(isset($_SESSION['user_auth'])): ?>
-                            <a class="me-3 py-2 text-dark text-decoration-none" href="../profile">Профиль</a>
-                            <a class="me-3 py-2 text-dark text-decoration-none" href="../auth/logout">Выход</a>
+                            <a class="me-3 py-2 text-decoration-none" href="../profile">Профиль</a>
+                            <a class="me-3 py-2 text-decoration-none" href="../auth/logout">Выход</a>
                         <?php else: ?>   
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../auth/registration">Регистрация</a>
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../auth/login">Вход</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../auth/registration">Регистрация</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../auth/login">Вход</a>
                         <?php endif; ?>
                         <?php if($_SESSION['admin_auth'] == True): ?>
-                            <a class="me-3 py-2 text-dark text-decoration-none" href="admin_login">Админ-панель</a>
+                            <a class="me-3 py-2 text-decoration-none" href="admin_login">Админ-панель</a>
                         <?php endif; ?>
                         <?php if(isset($_SESSION['user_auth'])): ?>
-                            <a class="me-3 py-2 text-dark text-decoration-none" href="../profile"><?= $_SESSION['user_login'] ;
+                            <a class="me-3 py-2 text-decoration-none" href="../profile"><?= $_SESSION['user_login'] ;
                             if($_SESSION['system_admin'] == true) {
                                 echo " <p class='text-danger'>(Администратор)</p>";
                             }elseif($_SESSION['admin_auth'] == true) {

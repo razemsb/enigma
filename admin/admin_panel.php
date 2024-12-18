@@ -51,8 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
     <link rel="shortcut icon" type="image/x-icon" href="../icons/lettering.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Enigma | Админ панель</title>
@@ -210,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
                             echo '<td><p>' . htmlspecialchars($row['Description']) . '</p></td>';
                             echo '<td><p>' . htmlspecialchars($row['price']) . '</p></td>';
                             echo '<td><p>' . ($row['status'] == 'active' ? 'Активен' : 'Не активен') . '</td>';
-                            echo '<td><a href="product.php?id=' . urlencode($row['ID']) . '" class="btn btn-sm btn-primary">Просмотреть</a>';
+                            echo '<td><a class="btn btn-sm btn-primary">Просмотреть</a>';
                             if(htmlspecialchars($row['status']) == 'active') {
                                 echo '<a href="off_product?id=' . urlencode($row['ID']) . '" class="btn btn-sm btn-danger mt-1">Заблокировать</a>';
                             }else {

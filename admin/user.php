@@ -13,6 +13,7 @@ if (!$_SESSION['admin_auth'] === true && !$_SESSION['admin_auth_pass'] === true)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/admin.css">
+    <Link rel="stylesheet" href="../css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Управление пользователями</title>
 </head>
@@ -27,16 +28,17 @@ if (!$_SESSION['admin_auth'] === true && !$_SESSION['admin_auth_pass'] === true)
                     </a>
 
                     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="admin_panel">Назад</a>
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../index">Главная</a>
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../catalog">Каталог</a>
+                        <a class="me-3 py-2 text-decoration-none" href="admin_panel">Назад</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../index">Главная</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../catalog">Каталог</a>
                         <?php if(isset($_SESSION['user_auth'])): ?>
-                            <a class="me-3 py-2 text-dark text-decoration-none" href="../profile">Профиль</a>
-                            <a class="me-3 py-2 text-dark text-decoration-none" href="logout_admin">Выход</a>
+                            <a class="me-3 py-2 text-decoration-none" href="../profile">Профиль</a>
+                            <a class="me-3 py-2 text-decoration-none" href="logout_admin">Выход</a>
                         <?php else: ?>   
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../auth/register">Регистрация</a>
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../auth/login">Вход</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../auth/register">Регистрация</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../auth/login">Вход</a>
                         <?php endif; ?>
+                        <button id="theme-toggle" class="btn btn-light position-fixed top-0 end-0 m-3">🌙</button>
                     </nav>
                 </div>
             </div>
@@ -86,7 +88,7 @@ if (!$_SESSION['admin_auth'] === true && !$_SESSION['admin_auth_pass'] === true)
                         </tr>
                         <tr>
                             <th>Дата регистрации</th>
-                            <td><?= htmlspecialchars($user['date_reg']) ?></td>
+                            <td><?= date('d.m.Y в H:i', strtotime(htmlspecialchars($user['date_reg']))) ?></td>
                         </tr>
                         <tr>
                             <th>Количество заказов</th>
@@ -133,6 +135,7 @@ if (!$_SESSION['admin_auth'] === true && !$_SESSION['admin_auth_pass'] === true)
     }
     ?>
 </div>
+<script src="../scripts/load.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="scripts/section.js"></script>
