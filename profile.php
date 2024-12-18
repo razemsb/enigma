@@ -9,7 +9,9 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit();
 }
-
+if (!isset($_SESSION['system_admin'])) {
+    $_SESSION['system_admin'] = false;
+}
 $userId = $_SESSION['user_id'];
 $query = "SELECT * FROM users WHERE ID = ?";
 $stmt = $conn->prepare($query);
