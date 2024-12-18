@@ -38,7 +38,7 @@ $user = $result->fetch_assoc();
                         <a class="me-3 py-2 text-decoration-none" href="auth/registration">Регистрация</a>
                         <a class="me-3 py-2 text-decoration-none" href="auth/login">Вход</a>
                         <?php endif; ?>
-                        <?php if($_SESSION['admin_auth'] == True): ?>
+                        <?php if($_SESSION['admin_auth'] == true): ?>
                             <a class="me-3 py-2 text-decoration-none" href="admin/admin_login">Админ-панель</a>
                         <?php endif; ?>
                         <?php if(isset($_SESSION['user_auth'])): ?>

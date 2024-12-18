@@ -29,15 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_login'] = $name;
                 $_SESSION['user_auth'] = true;
                 $_SESSION['user_id'] = $id;
+                $_SESSION['system_admin'] = false;
             } elseif ($is_admin == 'user') {
                 echo "<script>alert('Успешная авторизация'); window.location.href = '../index';</script>";
                 $_SESSION['user_auth'] = true;
                 $_SESSION['user_login'] = $name;
                 $_SESSION['admin_auth'] = false;
                 $_SESSION['user_id'] = $id;
+                $_SESSION['system_admin'] = false;
             }elseif($is_admin == 'system_admin') {
                 echo "<script>alert('Успешная авторизация системного администратора'); window.location.href = '../index';</script>";   
-                $_SESSION['admin_auth_pass'] = false;
+                /*$_SESSION['admin_auth_pass'] = false;*/
                 $_SESSION['user_login'] = $name;
                 $_SESSION['user_auth'] = true;
                 $_SESSION['user_id'] = $id;
