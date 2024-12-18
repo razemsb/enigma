@@ -1,0 +1,261 @@
+body {
+    background-color: #f5f5f5;
+}
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form > * {
+    margin-bottom: 10px;
+}
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.form-control {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: #45a049;
+}
+.admin-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.admin-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+}
+
+.admin-block h2 {
+    margin-bottom: 20px;
+}
+
+.admin-btn {
+    background-color: #0d6efd;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.admin-btn:hover {
+    background-color: #0a58ca;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th, .admin-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.admin-table th {
+    text-align: left;
+    background-color: #f0f0f0;
+}
+
+.admin-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+    .dropdown-menu a.active {
+        background-color: #007bff;
+        color: white;
+    }
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 20px;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    .btn-back {
+        margin-top: 20px;
+    }
+.text-primary {
+    color: #007bff !important;
+}
+
+.messaging-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contacts {
+    width: 15%;
+    background-color: #f4f6f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 650px;
+    overflow-y: auto;
+}
+
+.contacts h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#contacts-list {
+    list-style: none;
+    padding: 0;
+}
+
+#contacts-list li {
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#contacts-list li:hover {
+    background-color: #e3f2fd; 
+}
+
+#contacts-list li.active {
+    background-color: #64b5f6;
+}
+
+.chat {
+    margin-right: auto;
+    width: 80%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#chat-contact-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+#chat-time {
+    font-size: 12px;
+    color: #999;
+}
+
+.chat-box {
+    flex-grow: 1;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+ 
+}
+
+.message .sender {
+    font-weight: bold;
+    color: #4caf50; 
+}
+
+.message .timestamp {
+    font-size: 12px;
+    color: #bbb;
+}
+
+.message-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-input textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+    font-size: 14px;
+    margin-bottom: 10px;
+    height: 100px;
+}
+
+.message-input button {
+    align-self: flex-end;
+    padding: 10px 20px;
+    background-color: #64b5f6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.message-input button:hover {
+    background-color: #42a5f5;
+}
+
+.message-input button:disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
+}

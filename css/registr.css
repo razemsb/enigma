@@ -1,0 +1,48 @@
+body {
+    background: linear-gradient(135deg, #e6f2ff, #f0f8ff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: backgroundFade 1.5s ease-in-out;
+}
+
+.card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-in-out forwards;
+    opacity: 0;
+}
+
+.text-primary {
+    color: #4a90e2 !important;
+}
+
+.btn-success {
+    background-color: #5cb85c;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #4cae4c;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes backgroundFade {
+    0% {
+        background-color: #ffffff;
+    }
+    100% {
+        background-color: #e6f2ff;
+    }
+}
