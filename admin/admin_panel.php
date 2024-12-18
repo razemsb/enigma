@@ -68,15 +68,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
                     </a>
 
                     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="logout_admin">Главная</a>
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../catalog">Каталог</a>
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="admin_profile?section=none">Личный кабинет</a>
+                        <a class="me-3 py-2 text-decoration-none" href="logout_admin">Главная</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../catalog">Каталог</a>
+                        <a class="me-3 py-2 text-decoration-none" href="admin_profile?section=none">Личный кабинет</a>
                         <?php if(isset($_SESSION['user_auth'])): ?>
-                            <a class="me-3 py-2 text-dark text-decoration-none" href="../profile">Профиль</a>
-                            <a class="me-3 py-2 text-dark text-decoration-none" href="logout_admin">Выход</a>
+                            <a class="me-3 py-2 text-decoration-none" href="../profile">Профиль</a>
+                            <a class="me-3 py-2 text-decoration-none" href="logout_admin">Выход</a>
                         <?php else: ?>   
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../auth/register">Регистрация</a>
-                        <a class="me-3 py-2 text-dark text-decoration-none" href="../auth/login">Вход</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../auth/register">Регистрация</a>
+                        <a class="me-3 py-2 text-decoration-none" href="../auth/login">Вход</a>
                         <?php endif; ?>
                         <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
         <li><a class="dropdown-item <?= ($section == 'messages') ? 'active' : '' ?>" href="?section=admin_messages">Сообщения</a></li>    
     </ul>
 </div>
-
+<button id="theme-toggle" class="btn btn-light position-fixed top-0 end-0 m-3">🌙</button>
                     </nav>
                 </div>
             </div>
@@ -162,10 +162,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
                         while ($row = $result->fetch_assoc()) {
                             echo '<tr>';
                             echo '<td>' . '<img src="'.'../'. htmlspecialchars($row['avatar']) . '" alt="Avatar" class="rounded-circle mt-1 mb-1" style="width: 50px; height: 50px; object-fit: cover;">' . '</td>';
-                            echo '<td>' . htmlspecialchars($row['ID']) . '</td>';
-                            echo '<td>' . htmlspecialchars($row['Login']) . '</td>';
-                            echo '<td>' . htmlspecialchars($row['Email']) . '</td>';
-                            echo '<td>' . htmlspecialchars($row['date_reg']) . '</td>';
+                            echo '<td><p>' . htmlspecialchars($row['ID']) . '</p></td>';
+                            echo '<td><p>' . htmlspecialchars($row['Login']) . '</p></td>';
+                            echo '<td><p>' . htmlspecialchars($row['Email']) . '</p></td>';
+                            echo '<td><p>' . date('d.m.Y в H:i', strtotime(htmlspecialchars($row['date_reg']))) . '</p></td>';
                             echo '<td>' . ($row['is_active'] == 'active' ? '<p class="text-success fw-bold">Активен</p>' : '<p class="text-danger fw-bold">Не активен</p>') . '</td>';
                             echo '<td>' . ($row['is_admin'] == '1' ? '<p class="text-success fw-bold">Да</p>' : '<p class="text-danger fw-bold">Нет</p>') . '</td>';
                             echo '<td><a href="user?id=' . urlencode($row['ID']) . '" class="btn btn-sm btn-primary">Просмотреть</a></td>';
@@ -205,11 +205,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
                         $result = $conn->query($query);
                         while ($row = $result->fetch_assoc()) {
                             echo '<tr>';
-                            echo '<td>' . htmlspecialchars($row['ID']) . '</td>';   
-                            echo '<td>' . htmlspecialchars($row['Name']) . '</td>';
-                            echo '<td>' . htmlspecialchars($row['Description']) . '</td>';
-                            echo '<td>' . htmlspecialchars($row['price']) . '</td>';
-                            echo '<td>' . ($row['status'] == 'active' ? 'Активен' : 'Не активен') . '</td>';
+                            echo '<td><p>' . htmlspecialchars($row['ID']) . '</p></td>';   
+                            echo '<td><p>' . htmlspecialchars($row['Name']) . '</p></td>';
+                            echo '<td><p>' . htmlspecialchars($row['Description']) . '</p></td>';
+                            echo '<td><p>' . htmlspecialchars($row['price']) . '</p></td>';
+                            echo '<td><p>' . ($row['status'] == 'active' ? 'Активен' : 'Не активен') . '</td>';
                             echo '<td><a href="product.php?id=' . urlencode($row['ID']) . '" class="btn btn-sm btn-primary">Просмотреть</a>';
                             if(htmlspecialchars($row['status']) == 'active') {
                                 echo '<a href="off_product?id=' . urlencode($row['ID']) . '" class="btn btn-sm btn-danger mt-1">Заблокировать</a>';
@@ -248,10 +248,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
                         while ($row = $result->fetch_assoc()) {
                             echo '<tr>';
                             echo '<td>' . '<img src="'.'../'. htmlspecialchars($row['avatar']) . '" alt="Avatar" class="rounded-circle mt-1 mb-1" style="width: 50px; height: 50px; object-fit: cover;">' . '</td>';
-                            echo '<td>' . htmlspecialchars($row['ID']) . '</td>';   
-                            echo '<td>' . htmlspecialchars($row['Login']) . '</td>';
-                            echo '<td>' . htmlspecialchars($row['Email']) . '</td>';
-                            echo '<td>' . htmlspecialchars($row['date_reg']) . '</td>';
+                            echo '<td><p>' . htmlspecialchars($row['ID']) . '</p></td>';   
+                            echo '<td><p>' . htmlspecialchars($row['Login']) . '</p></td>';
+                            echo '<td><p>' . htmlspecialchars($row['Email']) . '</p></td>';
+                            echo '<td><p>' . date('d.m.Y в H:i', strtotime(htmlspecialchars($row['date_reg']))) . '</p></td>';
                             echo '<td><a href="user?id=' . urlencode($row['ID']) . '" class="btn btn-sm btn-primary">Просмотреть</a></td>';
                             echo '</tr>';
                         }
@@ -278,7 +278,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
         <tbody>
             <?php while ($ticket = mysqli_fetch_assoc($result)): ?>
                 <tr>
-                    <td><?= $ticket['ticket_id'] ?></td>
+                    <td><p><?= $ticket['ticket_id'] ?></p></td>
                     <td>
                         <?php
                         $user_query = "SELECT ID,Login FROM users WHERE ID =  ". $ticket['user_id'];
@@ -287,8 +287,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
                         echo $user['Login']."<br>"."<p>ID:(".$user['ID'].")</p>";
                         ?>
                     </td>
-                    <td><?= nl2br(htmlspecialchars($ticket['message'])) ?></td>
-                    <td><?= $ticket['status'] === 'open' ? '<p class="text-success fw-bold">Открыт</p>' : '<p class="text-danger fw-bold">Закрыт</p>' ?></td>
+                    <td><p><?= nl2br(htmlspecialchars($ticket['message'])) ?></p></td>
+                    <td><p><?= $ticket['status'] === 'open' ? '<p class="text-success fw-bold">Открыт</p>' : '<p class="text-danger fw-bold">Закрыт</p>' ?></p></td>
                     <td>
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#replyModal<?= $ticket['ticket_id'] ?>">Ответить</button>
                     </td>
@@ -302,7 +302,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="admin" method="POST">
+                                <form action="" method="POST">
                                     <input type="hidden" name="ticket_id" value="<?= $ticket['ticket_id'] ?>">
                                     <div class="mb-3">
                                         <label for="admin_reply" class="form-label">Ваш ответ</label>
@@ -326,6 +326,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
     </table>
 </div>
 <?php elseif($section == 'admin_messages'): ?>
+    <!--
     <div class="messaging-container">
     <div class="contacts">
         <h2>Контакты</h2>
@@ -334,7 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
         </ul>
     </div>
 
-    <div class="chat">
+<div class="chat">
         <div class="chat-header">
             <span id="chat-contact-name">Выберите контакт</span>
             <span id="chat-time"></span>
@@ -348,6 +349,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
         </div>
     </div>
 </div>
+-->
 <?php elseif($section == 'work_tickets'): ?>
 <?php 
     $query_work = "SELECT * FROM tickets WHERE status = 'open'";

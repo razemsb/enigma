@@ -157,8 +157,13 @@ body.dark-theme .dropdown-menu .dropdown-item:hover {
     background-color: transparent;
     color: #9f50ff;
 }
+body.dark-theme .container {
+    background-color: #2a2c2e;
+}
 body.dark-theme .container h2, 
-body.dark-theme .container h4 {
+body.dark-theme .container h4,
+body.dark-theme .container h5,
+body.dark-theme .container h1 {
     color: #ffffff;
 }
 body.dark-theme .container .form-label {
@@ -229,4 +234,34 @@ body.dark-theme hr {
 body.dark-theme .page-link {
    background-color: #2a2c2e;
    color: #b0b0b0;
+}
+body.dark-theme .modal-content {
+    background-color: #2B2B2B;
+    color: white;
+}
+body.dark-theme .modal-header {
+    border-bottom: 1px solid #4F4F4F;
+}
+body.dark-theme .modal-title {
+    color: white;
+}
+body.dark-theme .modal-body {
+    background-color: #2B2B2B;
+}
+body.dark-theme .form-label, body.dark-theme .form-control, body.dark-theme .form-select {
+    background-color: #363636;
+    color: white;
+    border-color: #4F4F4F;
+}
+body.dark-theme .form-control:focus, body.dark-theme .form-select:focus {
+    border-color: #6C6C6C;
+    box-shadow: 0 0 0 0.25rem rgba(255,255,255,.25);
+}
+body.dark-theme .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+body.dark-theme .btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
 }
