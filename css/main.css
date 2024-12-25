@@ -135,7 +135,7 @@ body.dark-theme .btn-light:hover {
     color: #000000;
 }
 body.dark-theme a {
-    color: #686868;
+    color: #ababab;
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -239,7 +239,6 @@ body.dark-theme .page-link {
     height: 0;
   }
 body.dark-theme .enigma_logo {
-    font-weight: bold;
     color: #5b9bd5;
 }
 body.dark-theme .fixed-circle {
@@ -269,4 +268,19 @@ body.dark-theme .fixed-circle img {
     object-fit: cover;
     border-radius: 50%;
     transition: transform 0.3s ease;
+}
+.list-group-item {
+    background-color: #272727!important;
+}
+.list-group-item:hover {
+    transition: transform 0.3s ease, translateX 0.9s ease;
+    transform: scale(1.005);
+    transform:translateX(2px);
+}
+body.dark-theme li a.dropdown-item {
+    color: #fff;
+    transition: background-color 0.3s ease-in-out;
+}
+body.dark-theme li a.dropdown-item:hover {
+    color: #b6b6b6!important;
 }
