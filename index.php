@@ -26,7 +26,7 @@ $user = $result->fetch_assoc();
             <div class="col-12">
                 <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
                     <a href="" class="d-flex align-items-center text-decoration-none">
-                        <span class="fs-4">Enigma</span>
+                        <span class="fs-4 enigma_logo">Enigma</span>
                     </a>
 
                     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">

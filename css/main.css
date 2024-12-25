@@ -11,6 +11,7 @@ html {
 body {
     background: linear-gradient(135deg, #f4f4f9, #e8f0fe);
     overflow-x: hidden;
+    transition: all 0,4s ease;
 }
 .highlight {
     font-weight: bold;
@@ -58,8 +59,8 @@ hr {
     right: 30px;
     width: 70px;
     height: 70px;
-    background-color: #bb86fc;
-    border: 2px solid #77c8a1;
+    background-color: #4a90e2;;
+    border: 2px solid #181818;
     border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -108,7 +109,7 @@ body.dark-theme .highlight,
 body.dark-theme .text-primary,
 body.dark-theme .text-success,
 body.dark-theme .text-info {
-    color: #bb86fc;
+    color: #717172;
 }
 
 body.dark-theme p.card-text,
@@ -134,11 +135,12 @@ body.dark-theme .btn-light:hover {
     color: #000000;
 }
 body.dark-theme a {
-    color: #bb86fc;
+    color: #686868;
+    transition: background-color 0.3s ease-in-out;
 }
 
 body.dark-theme a:hover {
-    color: #3700b3;
+    color: #b6b6b6;
 }
 body.dark-theme .list-group-item {
     background-color: #333333;
@@ -231,4 +233,40 @@ body.dark-theme hr {
 body.dark-theme .page-link {
    background-color: #2a2c2e;
    color: #b0b0b0;
+}
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+body.dark-theme .enigma_logo {
+    font-weight: bold;
+    color: #5b9bd5;
+}
+body.dark-theme .fixed-circle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    background-color: #989898;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+body.dark-theme .fixed-circle:hover {
+    border: 2px solid #2a2c2e;
+    transform: scale(1.1); 
+}
+body.dark-theme .fixed-circle img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
 }
