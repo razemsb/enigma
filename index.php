@@ -46,7 +46,9 @@ $user = $result->fetch_assoc();
                              <ul class="list-group">
                             <?php if (isset($_SESSION['user_auth'])): ?>
                             <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-                            <h3 class="fs-4"><?= $user['Login']; 
+                            <h3 class="fs-4"><?= $user['Login']; if($_SESSION['admin_auth'] == true) {
+                            echo "<img src='icons/admin.svg' class='ms-2 admin-svg' style='width: 30px; height: 30px; object-fit: cover;'>";
+                            }
                             if($_SESSION['system_admin'] == true) {
                                 echo " <p class='text-danger mt-1'>(Администратор)</p>";
                             }elseif($_SESSION['admin_auth'] == true) {
