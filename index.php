@@ -64,11 +64,6 @@ $user = $result->fetch_assoc();
     </div>
 </header>
 <div class="container mt-5">
-<!--
-<video autoplay muted loop class="bg-video">
-    <source src="icons/background.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video> -->
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-sm-12 text-center mb-5">
             <h1 class="display-4 fw-bold text-primary">Добро пожаловать на <span class="highlight text-success">Enigma</span></h1>
@@ -85,7 +80,7 @@ $user = $result->fetch_assoc();
         В основе нашей работы лежат проверенные инструменты: <span class="highlight text-success">HTML5</span>, <span class="highlight text-success">CSS3</span>, <span class="highlight text-success">JavaScript</span>, <span class="highlight text-success">PHP</span> и <span class="highlight text-success">MySQL</span>.
     </p>
     <p class="card-text text-center fs-5">
-        Мы активно используем такие мощные решения, как <span class="highlight text-primary">Bootstrap</span> и <span class="highlight text-primary">jQuery</span>, чтобы создавать удобные и привлекательные интерфейсы.
+        Мы активно используем такие мощные решения, как <span class="highlight text-primary">Bootstrap</span>, <span class="highlight">Laravel</span>, <span class="script_language text-primary">jQuery</span>, <span class="script_language text-primary">Vue.js</span> и <span class="script_language text-primary">React</span>, чтобы создавать удобные и привлекательные интерфейсы.
     </p>
     <hr class="my-4">
     <h4 class="card-title text-center mt-4 text-secondary">Что еще мы умеем</h4>

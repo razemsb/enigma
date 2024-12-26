@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['avatar'])) {
                 <div class="card-body p-5">
                     <h5 class="card-title text-center mb-4">© 2025 Enigma. Все права защищены.</h5>
                     <p class="card-text text-center">
-                        <a href="https://github.com/Enigma-Group" target="_blank" class="text-decoration-none">github.com/Enigma-Group</a>
+                       <a href="support" class="text-decoration-none">Техническая поддержка</a>
                     </p>
                 </div>
             </div>

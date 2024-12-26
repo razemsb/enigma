@@ -88,13 +88,16 @@ $user = $result->fetch_assoc();
             ?>
         </ul>
     </div>
-    <input type="text" id="search" placeholder="Поиск по названию..." class="form-control my-3">
+    <!--
+    <input type="text" id="search" placeholder="Поиск по названию..." class="form-control my-3" name="search">
      <div id="results"></div>
+        -->
 </div>
-
+<!--
 <?php if(isset($_GET['search']) && !empty($_GET['search'])): ?>
     <a href="catalog.php" class="btn btn-danger">Сбросить поиск</a>
 <?php endif; ?>
+-->
 
             </div>
         </div>
@@ -150,7 +153,7 @@ $user = $result->fetch_assoc();
         ?>
     </div>
 </div>
-<script>
+<!--<script>
     $(document).ready(function() {
     $('#search').on('input', function() {
         var query = $(this).val();
@@ -169,7 +172,7 @@ $user = $result->fetch_assoc();
     });
 });
 
-</script>
+</script>-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="scripts/load.js"></script>
 <script src="scripts/search.js"></script>
