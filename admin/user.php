@@ -120,17 +120,15 @@ if (!$_SESSION['admin_auth'] === true && !$_SESSION['admin_auth_pass'] === true)
                         </tr>
                         <?php endif; ?>
                     </table>
-                    <?php if ($user['is_admin'] == '1'):?>
-                    <a href="admin_panel?section=admin" class="btn btn-primary btn-back">Назад к администраторам</a>
-                    <?php else: ?>
                     <a href="admin_panel?section=users" class="btn btn-primary btn-back">Назад к пользователям</a>
-                    <?php endif; ?>
+                    <a href="admin_panel?section=admin" class="btn btn-primary btn-back">Назад к администраторам</a>
                 </div>
             </div>
             <?php
         } else {
             echo '<div class="alert alert-danger" role="alert">Пользователь не найден.</div>';
             echo '<a href="admin_panel?section=users" class="btn btn-primary btn-back">Назад к пользователям</a>';
+            echo '<a href="admin_panel?section=admin" class="btn btn-primary btn-back">Назад к администраторам</a>';
         }
     }
     ?>
