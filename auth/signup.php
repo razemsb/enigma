@@ -5,11 +5,19 @@ error_reporting(E_ALL);
 session_start();
 require_once('../database/database.php');
 
+function sanitize_input($data) {
+    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+}
+
+function validate_email($email) {
+    return filter_var(trim($email), FILTER_SANITIZE_EMAIL);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = htmlspecialchars(trim($_POST['login']), ENT_QUOTES, 'UTF-8');
-    $pass = htmlspecialchars(trim($_POST['password']), ENT_QUOTES, 'UTF-8');
-    $repeatpass = htmlspecialchars(trim($_POST['repeatpassword']), ENT_QUOTES, 'UTF-8');
-    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+    $name = sanitize_input($_POST['login']);
+    $pass = sanitize_input($_POST['password']);
+    $repeatpass = sanitize_input($_POST['repeatpassword']);
+    $email = validate_email($_POST['email']);
 
     if (empty($name) || empty($pass) || empty($repeatpass) || empty($email)) {
         echo "<script>alert('Все поля обязательны для заполнения.'); window.history.back();</script>";
@@ -51,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     $hashed_password = password_hash($pass, PASSWORD_BCRYPT);
+
     $is_admin = 'user';
     $orders_count = 0;
     $avatar = 'uploads/basic_avatar.webp'; 
@@ -69,6 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['user_id'] = $conn->insert_id;
     $_SESSION['admin_auth'] = false;
     $_SESSION['user_login'] = $name;
+
+    session_regenerate_id(true);
+
     echo "<script>alert('Регистрация прошла успешно!'); window.location.href = '../index';</script>";
 
     $stmt->close();

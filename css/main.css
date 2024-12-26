@@ -11,7 +11,7 @@ html {
 body {
     background: linear-gradient(135deg, #f4f4f9, #e8f0fe);
     overflow-x: hidden;
-    transition: all 0,4s ease;
+    transition: background-color 0,4s ease, color 0,4s ease;
 }
 .highlight {
     font-weight: bold;
@@ -287,4 +287,33 @@ body.dark-theme li a.dropdown-item:hover {
 .script_language {
     font-weight: bold;
     color: #d7d726!important;   
+}
+.offcanvas-menu {
+    width: 350px;
+    margin-left: auto;
+}
+.navbar-toggler img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+} 
+body.dark-theme .offcanvas {
+    background-color: #333;
+}
+body.dark-theme button.navbar-toggler img {
+    filter: brightness(200%) contrast(50%);
+}
+.navbar-toggler:focus,
+.navbar-toggler:active {
+    outline: none; 
+    box-shadow: none; 
+    background: none; 
+}
+h3 .text-danger {
+    font-size: 20px;
+}
+body.dark-theme li.list-group-item {
+    background-color: #444444!important;
+    border: none;
+    border-bottom: 1px solid #1d1d1d!important;
 }
