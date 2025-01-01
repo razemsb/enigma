@@ -85,44 +85,78 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['avatar'])) {
             <div class="col-12">
                 <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
                     <a href="" class="d-flex align-items-center text-decoration-none">
-                        <span class="fs-4">Enigma</span>
+                        <span class="fs-4 enigma_logo">Enigma</span>
                     </a>
-
                     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                        <a class="me-3 py-2 text-decoration-none" href="index">Главная</a>
-                        <a class="me-3 py-2 text-decoration-none" href="catalog">Каталог</a>
-                        <?php if(isset($_SESSION['user_auth'])): ?>
-                            <a class="me-3 py-2 text-decoration-none" href="auth/logout">Выход</a>
-                        <?php else: ?>   
-                        <a class="me-3 py-2 text-decoration-none" href="auth/register">Регистрация</a>
-                        <a class="me-3 py-2 text-decoration-none" href="auth/login">Вход</a>
-                        <?php endif; ?>
-                        <?php if(isset($_SESSION['admin_auth'])): ?>
-                            <a class="me-3 py-2 text-decoration-none" href="admin/admin_login">Админ-панель</a>
-                        <?php endif; ?>
-                        <?php if(isset($_SESSION['user_auth'])): ?>
-                            <a class="me-3 py-2 text-decoration-none" href="profile"><?= $_SESSION['user_login'] ;
-                            if($_SESSION['system_admin'] == true) {
-                                echo " <p class='text-danger'>(Администратор)</p>";
-                            }elseif($_SESSION['admin_auth'] == true) {
-                                echo " <p class='text-danger'>(Модератор)</p>";
+                    <?php if (isset($_SESSION['user_auth'])): ?>
+                    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 mt-5">
+                    <h3 class="fs-4"><?= $user['Login']; ?></h3>
+                    <img src="<?= $user['avatar']; ?>" class="rounded-circle  mt-1 mb-1 ms-3" style="width: 50px; height: 50px; object-fit: cover;">
+                    </div>
+                    <?php else: ?>
+                    <?php endif; ?>
+                        <button class="navbar-toggler border-0 mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu"><img src="icons/menu.svg" style="width: 30px; height: 30px; object-fit: cover;"></button>
+                        <div class="offcanvas offcanvas-end offcanvas-menu" tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
+                         <div class="offcanvas-header">
+                             <h5 class="offcanvas-title" id="sideMenuLabel">Меню</h5>
+                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                         </div>
+                         <div class="offcanvas-body">
+                             <ul class="list-group">
+                            <?php if (isset($_SESSION['user_auth'])): ?>
+                            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+                            <h3 class="fs-4"><?= $user['Login']; if($_SESSION['admin_auth'] == true) {
+                            echo "<img src='icons/admin.svg' class='ms-2 admin-svg' style='width: 30px; height: 30px; object-fit: cover;'>";
                             }
-                            ?></a>
-                            <?php 
-                           if (isset($user['avatar']) && !empty($user['avatar']) && file_exists($user['avatar'])): ?>
-                               <a href="profile"><img src="<?php echo $user['avatar']; ?>" alt="Avatar" class="rounded-circle mt-3" style="width: 50px; height: 50px; object-fit: cover;"></a>
-                           <?php else: ?>
-                               <a href="profile"><img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-circle mt-3" style="width: 50px; height: 50px; object-fit: cover;"></a>
-                           <?php endif; ?>
-                        <?php endif; ?>
-                        <button id="theme-toggle" class="btn btn-light position-fixed top-0 end-0 m-3">🌙</button>
+                            if($_SESSION['system_admin'] == true) {
+                                echo " <p class='text-danger mt-1'>(Администратор)</p>";
+                            }elseif($_SESSION['admin_auth'] == true) {
+                                echo " <p class='text-danger mt-1'>(Модератор)</p>";
+                            }
+                            ?>
+                            </h3>
+                            <img src="<?= $user['avatar']; ?>" class="rounded-circle mt-1 mb-1 ms-auto" style="width: 50px; height: 50px; object-fit: cover;">
+                            </div>
+                            <?php endif; ?>
+                            <?php if($_SESSION['admin_auth'] == true): ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="admin/admin_profile" class="text-decoration-none">Личный кабинет</a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="admin/admin_panel" class="text-decoration-none">Админ панель</a>
+                            </li>
+                            <?php endif; ?>
+                            <?php if(isset($_SESSION['user_auth'])): ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="auth/logout" class="text-decoration-none">Выход</a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                <a href="profile" class="text-decoration-none">Профиль</a>
+                            </li>
+                            <?php else: ?> 
+                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                <a href="auth/registration" class="text-decoration-none">Регистрация</a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                <a href="auth/login" class="text-decoration-none">Вход</a>
+                            </li>
+                            <?php endif; ?>   
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="catalog" class="text-decoration-none">Каталог</a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="support" class="text-decoration-none">Поддержка</a>
+                            </li>
+                            <button id="theme-toggle" class="btn btn-light position-fixed top-0 end-0 m-3">🌙</button>
+                             </ul>
+                         </div>
+                     </div>
                     </nav>
                 </div>
             </div>
         </div>
     </div>
 </header>
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-sm-12 text-center mb-5">
@@ -146,11 +180,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['avatar'])) {
                     </div>
                     <?php if($user['is_admin'] == 'admin'): ?>
                         <p class="card-text text-center fs-5">
-                            <span class="highlight text-primary">Администратор</span>
+                            <span class="text-primary">Администратор</span>
                         </p>
                     <?php elseif($user['is_admin'] == 'system_admin'): ?>
                         <p class="card-text text-center fs-5">
-                            <span class="highlight text-danger">Системный администратор</span>
+                            <span class="text-danger">Системный администратор</span>
                         </p>
                     <?php endif; ?>
                     <?php if ($user['avatar'] === 'uploads/basic_avatar.webp'): ?>
@@ -165,17 +199,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['avatar'])) {
                     <?php if (isset($error)): ?>
                         <div class="alert alert-danger mt-3"><?php echo $error; ?></div>
                     <?php endif; ?>
-                    
-                    <ul class="list-group list-group-flush mb-4">
-                        <li class="list-group-item d-flex justify-content-between">
+                    <ul class="user-info list-group list-group-flush mb-4">
+                        <li class="user-info-item d-flex justify-content-between py-2 border-bottom">
                             <span>Почта:</span>
                             <span><?php echo htmlspecialchars($user['Email']); ?></span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between">
+                        <li class="user-info-item d-flex justify-content-between py-2 border-bottom">
                             <span>Статус:</span>
                             <span><?php echo $user['is_active'] == 'active' ? 'Активен' : 'Заблокирован'; ?></span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between">
+                        <li class="user-info-item d-flex justify-content-between py-2 border-bottom">
                             <span>Количество заказов:</span>
                             <span><?php echo htmlspecialchars($user['orders_count']); ?></span>
                         </li>

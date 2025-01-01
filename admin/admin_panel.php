@@ -326,7 +326,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
     </table>
 </div>
 <?php elseif($section == 'admin_messages'): ?>
-    <!--
     <div class="messaging-container">
     <div class="contacts">
         <h2>Контакты</h2>
@@ -349,7 +348,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
         </div>
     </div>
 </div>
--->
 <?php elseif($section == 'work_tickets'): ?>
 <?php 
     $query_work = "SELECT * FROM tickets WHERE status = 'open'";

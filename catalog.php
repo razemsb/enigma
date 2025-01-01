@@ -41,7 +41,7 @@ $user = $result->fetch_assoc();
                     </div>
                     <?php else: ?>
                     <?php endif; ?>
-                        <button class="navbar-toggler border-0 mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu"><img src="icons/menu.svg" class=""></button>
+                        <button class="navbar-toggler border-0 mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu"><img src="icons/menu.svg" style="width: 30px; height: 30px; object-fit: cover;"></button>
                         <div class="offcanvas offcanvas-end offcanvas-menu" tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
                          <div class="offcanvas-header">
                              <h5 class="offcanvas-title" id="sideMenuLabel">Меню</h5>
@@ -51,11 +51,23 @@ $user = $result->fetch_assoc();
                              <ul class="list-group">
                             <?php if (isset($_SESSION['user_auth'])): ?>
                             <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-                            <h3 class="fs-4"><?= $user['Login']; ?></h3>
+                            <h3 class="fs-4"><?= $user['Login']; if($_SESSION['admin_auth'] == true) {
+                            echo "<img src='icons/admin.svg' class='ms-2 admin-svg' style='width: 30px; height: 30px; object-fit: cover;'>";
+                            }
+                            if($_SESSION['system_admin'] == true) {
+                                echo " <p class='text-danger mt-1'>(Администратор)</p>";
+                            }elseif($_SESSION['admin_auth'] == true) {
+                                echo " <p class='text-danger mt-1'>(Модератор)</p>";
+                            }
+                            ?>
+                            </h3>
                             <img src="<?= $user['avatar']; ?>" class="rounded-circle mt-1 mb-1 ms-auto" style="width: 50px; height: 50px; object-fit: cover;">
                             </div>
                             <?php endif; ?>
                             <?php if($_SESSION['admin_auth'] == true): ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="admin/admin_profile" class="text-decoration-none">Личный кабинет</a>
+                            </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <a href="admin/admin_panel" class="text-decoration-none">Админ панель</a>
                             </li>
@@ -69,14 +81,14 @@ $user = $result->fetch_assoc();
                             </li>
                             <?php else: ?> 
                             <li class="list-group-item d-flex justify-content-between align-items-center"> 
-                                <a href="auth/register" class="text-decoration-none">Регистрация</a>
+                                <a href="auth/registration" class="text-decoration-none">Регистрация</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center"> 
                                 <a href="auth/login" class="text-decoration-none">Вход</a>
                             </li>
                             <?php endif; ?>   
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="index" class="text-decoration-none">На главную</a>
+                                <a href="index" class="text-decoration-none">Главная</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <a href="support" class="text-decoration-none">Поддержка</a>
@@ -113,21 +125,13 @@ $user = $result->fetch_assoc();
             ?>
         </ul>
     </div>
-    <!--
     <input type="text" id="search" placeholder="Поиск по названию..." class="form-control my-3" name="search">
-     <div id="results"></div>
-        -->
 </div>
-<!--
-<?php if(isset($_GET['search']) && !empty($_GET['search'])): ?>
-    <a href="catalog.php" class="btn btn-danger">Сбросить поиск</a>
-<?php endif; ?>
--->
-
             </div>
         </div>
     </form>
     <div class="row">
+    <div id="results"></div>
         <?php
         if(isset($_GET['category']) && !empty($_GET['category'])) {
             $selectedCategory = $conn->real_escape_string($_GET['category']);
@@ -178,26 +182,26 @@ $user = $result->fetch_assoc();
         ?>
     </div>
 </div>
-<!--<script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
     $(document).ready(function() {
-    $('#search').on('input', function() {
-        var query = $(this).val();
-        if (query.length > 2) { 
-            $.ajax({
-                url: 'search.php',
-                method: 'GET',
-                data: { search: query },
-                success: function(response) {
-                    $('#results').html(response);
-                }
-            });
-        } else {
-            $('#results').empty(); 
-        }
+        $('#search').on('input', function() {
+            var query = $(this).val();
+            if (query.length > 2) {
+                $.ajax({
+                    url: 'search.php',
+                    method: 'GET',
+                    data: { search: query },
+                    success: function(response) {
+                        $('#results').html(response);
+                    }
+                });
+            } else {
+                $('#results').empty();
+            }
+        });
     });
-});
-
-</script>-->
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="scripts/load.js"></script>
 <script src="scripts/search.js"></script>
