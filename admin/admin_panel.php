@@ -45,16 +45,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
         echo "<p class='alert alert-danger'>Ошибка обновления тикета: " . $stmt->error . "</p>";
     }
 }
+$sql = "SELECT * FROM users WHERE ID = ?";
+$stmt = $conn->prepare($sql);   
+$stmt->bind_param('i', $_SESSION['user_id']);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="shortcut icon" type="image/x-icon" href="../icons/lettering.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
     <title>Enigma | Админ панель</title>
 </head>
 <body>
@@ -64,45 +70,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
             <div class="col-12">
                 <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
                     <a href="" class="d-flex align-items-center text-decoration-none">
-                        <span class="fs-4">Enigma</span>
+                        <span class="fs-4 enigma_logo">Enigma</span>
                     </a>
-
                     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                        <a class="me-3 py-2 text-decoration-none" href="logout_admin">Главная</a>
-                        <a class="me-3 py-2 text-decoration-none" href="../catalog">Каталог</a>
-                        <a class="me-3 py-2 text-decoration-none" href="admin_profile?section=none">Личный кабинет</a>
-                        <?php if(isset($_SESSION['user_auth'])): ?>
-                            <a class="me-3 py-2 text-decoration-none" href="../profile">Профиль</a>
-                            <a class="me-3 py-2 text-decoration-none" href="logout_admin">Выход</a>
-                        <?php else: ?>   
-                        <a class="me-3 py-2 text-decoration-none" href="../auth/register">Регистрация</a>
-                        <a class="me-3 py-2 text-decoration-none" href="../auth/login">Вход</a>
-                        <?php endif; ?>
-                        <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        Админ панель
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item <?= ($section == 'none') ? 'active' : '' ?>" href="?section=none">Статистика</a></li>
-        <li><a class="dropdown-item <?= ($section == 'users') ? 'active' : '' ?>" href="?section=users">Пользователи</a></li>
-        <?php if($_SESSION['system_admin'] == true): ?>
-        <li><a class="dropdown-item <?= ($section == 'admin') ? 'active' : '' ?>" href="?section=admin">Администраторы</a></li>
-        <?php endif; ?>
-        <li><a class="dropdown-item <?= ($section == 'products') ? 'active' : '' ?>" href="?section=products">Товары</a></li>
-        
-        <li><a class="dropdown-item <?= ($section == 'tickets') ? 'active' : '' ?>" href="?section=support_tickets">Тикеты 
-            <?php
-                $ticket_count = $conn->query("SELECT COUNT(*) FROM support_tickets WHERE status = 'open'")->fetch_row()[0];
-                if ($ticket_count > 0) {
-                    echo '<span class="badge bg-danger rounded-pill">' . $ticket_count . '</span>';
-                }
-            ?>
-        </a></li>
-        <li><a class="dropdown-item <?= ($section == 'work_tickets') ? 'active' : '' ?>" href="?section=work_tickets">Ответы</a></li>
-        <li><a class="dropdown-item <?= ($section == 'messages') ? 'active' : '' ?>" href="?section=admin_messages">Сообщения</a></li>    
-    </ul>
-</div>
-<button id="theme-toggle" class="btn btn-light position-fixed top-0 end-0 m-3">🌙</button>
+                    <?php if (isset($_SESSION['user_auth'])): ?>
+                    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 mt-5">
+                    <h3 class="fs-4"><?= $user['Login']; ?></h3>
+                    <img src="../<?= $user['avatar']; ?>" class="rounded-circle  mt-1 mb-1 ms-3" style="width: 50px; height: 50px; object-fit: cover;">
+                    </div>
+                    <?php else: ?>
+                    <?php endif; ?>
+                        <button class="navbar-toggler border-0 mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu"><img src="../icons/menu.svg" style="width: 30px; height: 30px; object-fit: cover;"></button>
+                        <div class="offcanvas offcanvas-end offcanvas-menu" tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
+                         <div class="offcanvas-header">
+                             <h5 class="offcanvas-title" id="sideMenuLabel">Меню</h5>
+                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                         </div>
+                         <div class="offcanvas-body">
+                             <ul class="list-group">
+                            <?php if (isset($_SESSION['user_auth'])): ?>
+                            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+                            <h3 class="fs-4"><?= $user['Login']; if($_SESSION['admin_auth'] == true) {
+                            echo "<img src='../icons/admin.svg' class='ms-2 admin-svg' style='width: 30px; height: 30px; object-fit: cover;'>";
+                            }
+                            if($_SESSION['system_admin'] == true) {
+                                echo " <p class='text-danger mt-1'>(Администратор)</p>";
+                            }elseif($_SESSION['admin_auth'] == true) {
+                                echo " <p class='text-danger mt-1'>(Модератор)</p>";
+                            }
+                            ?>
+                            </h3>
+                            <img src="../<?= $user['avatar']; ?>" class="rounded-circle mt-1 mb-1 ms-auto" style="width: 50px; height: 50px; object-fit: cover;">
+                            </div>
+                            <?php endif; ?>
+                            <?php if($_SESSION['admin_auth'] == true): ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="admin_profile" class="text-decoration-none">Личный кабинет</a>
+                            </li>
+                            <?php endif; ?>
+                            <?php if(isset($_SESSION['user_auth'])): ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="../auth/logout" class="text-decoration-none">Выход</a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                <a href="index" class="text-decoration-none">На главную</a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                <a href="../profile" class="text-decoration-none">Профиль</a>
+                            </li>
+                            <?php else: ?> 
+                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                <a href="auth/registration" class="text-decoration-none">Регистрация</a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                <a href="../auth/login" class="text-decoration-none">Вход</a>
+                            </li>
+                            <?php endif; ?>   
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="../catalog" class="text-decoration-none">Каталог</a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="../support" class="text-decoration-none">Поддержка</a>
+                            </li>
+                            <button id="theme-toggle" class="btn btn-light position-fixed top-0 end-0 m-3">🌙</button>
+                             </ul>
+                         </div>
+                     </div>
                     </nav>
                 </div>
             </div>

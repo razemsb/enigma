@@ -77,17 +77,20 @@ $section = isset($_GET['section']) ? $_GET['section'] : 'none';
                             <?php endif; ?>
                             <?php if(isset($_SESSION['user_auth'])): ?>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="auth/logout" class="text-decoration-none">Выход</a>
+                                <a href="../auth/logout" class="text-decoration-none">Выход</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center"> 
-                                <a href="profile" class="text-decoration-none">Профиль</a>
+                                <a href="../index" class="text-decoration-none">На главную</a>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                <a href="../profile" class="text-decoration-none">Профиль</a>
                             </li>
                             <?php endif; ?>   
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="catalog" class="text-decoration-none">Каталог</a>
+                                <a href="../catalog" class="text-decoration-none">Каталог</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="support" class="text-decoration-none">Поддержка</a>
+                                <a href="../support" class="text-decoration-none">Поддержка</a>
                             </li>
                             <button id="theme-toggle" class="btn btn-light position-fixed top-0 end-0 m-3">🌙</button>
                              </ul>

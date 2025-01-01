@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['avatar'])) {
                                 <a href="auth/logout" class="text-decoration-none">Выход</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center"> 
-                                <a href="profile" class="text-decoration-none">Профиль</a>
+                                <a href="index" class="text-decoration-none">На главную</a>
                             </li>
                             <?php else: ?> 
                             <li class="list-group-item d-flex justify-content-between align-items-center"> 
