@@ -60,7 +60,6 @@ hr {
     width: 70px;
     height: 70px;
     background-color: #4a90e2;;
-    border: 2px solid #181818;
     border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -68,8 +67,7 @@ hr {
 }
 
 .fixed-circle:hover {
-    border: 2px solid #2a2c2e;
-    transform: scale(1.1); 
+    transform: scale(1.09); 
 }
 .fixed-circle img {
     position: absolute;

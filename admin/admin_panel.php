@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ticket_id'])) {
     $stmt->bind_param('si', $_SESSION['user_login'], $ticketId);
 
     if ($stmt->execute()) {
-        echo "<p class='alert alert-success' id='ticket_taken'>Тикет #$ticketId взят в разработку.</p>";
-        echo "<script>setTimeout(function(){ document.getElementById('ticket_taken').remove(); }, 3000);</script>";
+        echo "<div class='alert alert-success alert-dismissible fade show' role='alert' id='ticket_taken'>Ответ на тикет #$ticketId был успешно отвравлен<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+        echo "<script>setTimeout(function(){ document.getElementById('ticket_taken').classList.remove('show'); }, 1500);</script>";
     } else {
         echo "<p class='alert alert-danger'>Ошибка обновления тикета: " . $stmt->error . "</p>";
     }
@@ -103,35 +103,38 @@ $user = $result->fetch_assoc();
                             <img src="../<?= $user['avatar']; ?>" class="rounded-circle mt-1 mb-1 ms-auto" style="width: 50px; height: 50px; object-fit: cover;">
                             </div>
                             <?php endif; ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                <a href="../index" class="text-decoration-none">На главную</a>
+                            </li>
                             <?php if($_SESSION['admin_auth'] == true): ?>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <a href="admin_profile" class="text-decoration-none">Личный кабинет</a>
                             </li>
-                            <?php endif; ?>
-                            <?php if(isset($_SESSION['user_auth'])): ?>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="../auth/logout" class="text-decoration-none">Выход</a>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
-                                <a href="index" class="text-decoration-none">На главную</a>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
-                                <a href="../profile" class="text-decoration-none">Профиль</a>
-                            </li>
-                            <?php else: ?> 
-                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
-                                <a href="auth/registration" class="text-decoration-none">Регистрация</a>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center"> 
-                                <a href="../auth/login" class="text-decoration-none">Вход</a>
-                            </li>
-                            <?php endif; ?>   
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="../catalog" class="text-decoration-none">Каталог</a>
-                            </li>
+                            <?php endif; ?>  
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <a href="../support" class="text-decoration-none">Поддержка</a>
                             </li>
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Админ панель
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item <?= ($section == 'none') ? 'active' : '' ?>" href="?section=none">Статистика</a></li>
+                                <li><a class="dropdown-item <?= ($section == 'users') ? 'active' : '' ?>" href="?section=users">Пользователи</a></li>
+                                <?php if($_SESSION['system_admin'] == true): ?>
+                                <li><a class="dropdown-item <?= ($section == 'admin') ? 'active' : '' ?>" href="?section=admin">Администраторы</a></li>
+                                <?php endif; ?>
+                                <li><a class="dropdown-item <?= ($section == 'products') ? 'active' : '' ?>" href="?section=products">Товары</a></li>
+                                <li><a class="dropdown-item <?= ($section == 'tickets') ? 'active' : '' ?>" href="?section=support_tickets">Тикеты 
+                                    <?php
+                                        $ticket_count = $conn->query("SELECT COUNT(*) FROM support_tickets WHERE status = 'open'")->fetch_row()[0];
+                                        if ($ticket_count > 0) {
+                                            echo '<span class="badge bg-danger rounded-pill">' . $ticket_count . '</span>';
+                                        }
+                                    ?>
+                                </a></li>
+                                <li><a class="dropdown-item <?= ($section == 'work_tickets') ? 'active' : '' ?>" href="?section=work_tickets">Ответы</a></li>
+                                <li><a class="dropdown-item <?= ($section == 'messages') ? 'active' : '' ?>" href="?section=admin_messages">Сообщения</a></li>
+                            </ul>
                             <button id="theme-toggle" class="btn btn-light position-fixed top-0 end-0 m-3">🌙</button>
                              </ul>
                          </div>
@@ -309,6 +312,10 @@ $user = $result->fetch_assoc();
             </tr>
         </thead>
         <tbody>
+            <?php
+            $query = "SELECT * FROM support_tickets";
+            $result = $conn->query($query);
+            ?>
             <?php while ($ticket = mysqli_fetch_assoc($result)): ?>
                 <tr>
                     <td><p><?= $ticket['ticket_id'] ?></p></td>
@@ -323,7 +330,11 @@ $user = $result->fetch_assoc();
                     <td><p><?= nl2br(htmlspecialchars($ticket['message'])) ?></p></td>
                     <td><p><?= $ticket['status'] === 'open' ? '<p class="text-success fw-bold">Открыт</p>' : '<p class="text-danger fw-bold">Закрыт</p>' ?></p></td>
                     <td>
+                        <?php if($ticket['status'] === 'closed'): ?>
+                            <a class="btn btn-danger fw-bold" disabled>Закрыт</a>
+                        <?php else: ?>
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#replyModal<?= $ticket['ticket_id'] ?>">Ответить</button>
+                        <?php endif; ?>
                     </td>
                 </tr>
 

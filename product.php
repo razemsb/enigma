@@ -91,7 +91,7 @@ $user = $result->fetch_assoc();
             <p class="text-muted">Категория: <?= htmlspecialchars($product['category']) ?></p>
             <p class="fw-bold">Цена: <?= number_format($product['price'], 0, ',', ' ') ?> ₽</p>
             <p><?= htmlspecialchars($product['Description']) ?></p>
-            <form action="cart" method="POST">
+            <form action="add_to_cart" method="POST">
                 <input type="hidden" name="product_id" value="<?= $product['ID'] ?>">
                 <button type="submit" class="btn btn-primary">Добавить в корзину</button>
             </form>

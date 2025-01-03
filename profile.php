@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['avatar'])) {
     <link rel="shortcut icon" type="image/x-icon" href="icons/lettering.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
-    <title>Профиль | Enigma</title>
+    <title>Enigma | <?= $user['Login']; ?></title>
 </head>
 <body>
 <header>
@@ -208,8 +208,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['avatar'])) {
                             <span>Статус:</span>
                             <span><?php echo $user['is_active'] == 'active' ? 'Активен' : 'Заблокирован'; ?></span>
                         </li>
-                        <li class="user-info-item d-flex justify-content-between py-2 border-bottom">
-                            <span>Количество заказов:</span>
+                        <li >
+                            <span class="user-info-item d-flex justify-content-between py-2 border-bottom">Количество заказов:</span>
                             <span><?php echo htmlspecialchars($user['orders_count']); ?></span>
                         </li>
                     </ul>

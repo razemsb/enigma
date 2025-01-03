@@ -20,11 +20,11 @@ $user = $result->fetch_assoc();
     <title>Enigma | Главная</title>
 </head>
 <body>
-            <header>
-                <div class="container">
-                        <div class="row">
-                             <div class="col-12">
-                          <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+<header>
+        <div class="container">
+                <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
                                  <a href="" class="d-flex align-items-center text-decoration-none">
                                         <span class="fs-4 enigma_logo">Enigma</span>
                                     </a>
@@ -67,6 +67,9 @@ $user = $result->fetch_assoc();
                                             <a href="admin/admin_panel" class="text-decoration-none">Админ панель</a>
                                         </li>
                                         <?php endif; ?>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center"> 
+                                            <a href="cart" class="text-decoration-none">Корзина</a>
+                                        </li>
                                         <?php if(isset($_SESSION['user_auth'])): ?>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <a href="auth/logout" class="text-decoration-none">Выход</a>
