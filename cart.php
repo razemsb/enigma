@@ -1,4 +1,7 @@
 <?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 require_once 'database/database.php';
 
@@ -13,13 +16,18 @@ $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    $productId = (int)$_POST['delete'];
+function removeFromCart($productId) {
     if (isset($_SESSION['cart'][$productId])) {
         unset($_SESSION['cart'][$productId]);
     }
-    header('Location: cart');
-    exit();
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['delete'])) {
+        $productId = (int)$_POST['delete'];
+        removeFromCart($productId);
+        header('Location: cart');
+        exit();
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -114,65 +122,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>Корзина <?php if( count($_SESSION['cart']) >= 1) {
-                echo "(" . count($_SESSION['cart']) . ")";    
-            }
-            ?>
-            </h1>
-             <?php
-             if(isset($_SESSION['cart'])) {
+            <h1>Корзина</h1>
+            <?php if (!isset($_SESSION['cart']) || count($_SESSION['cart']) === 0): ?>
+                <p class="text-center text-muted">Ваша корзина пуста.</p>
+            <?php else: ?>
+                <?php
+                $total_price = 0;
                 $product_id = array_keys($_SESSION['cart']);
                 $product_id = implode(', ', $product_id);
                 $sql = "SELECT * FROM categories WHERE ID IN ($product_id)";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
-                while($product = $result->fetch_assoc()) {
+                echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
+                while ($product = $result->fetch_assoc()) {
                     echo "
-                    <div class='card mb-3 d-flex'>
-                     <div class='row g-0'>
-                       <div class='col-md-4'>
-                         <img src='{$product['Image']}' class='img-fluid rounded-start' style='width: 100%; height: 100%; object-fit: cover;'>
-                       </div>
-                       <div class='col-md-8'>
-                         <div class='card-body'>
-                           <h5 class='card-title'>{$product['Name']} ID: {$product['ID']}</h5>
-                           <p class='card-text'>Цена: {$product['price']} ₽</p>
-                         </div>
-                         <form action='' method='POST'>
-                            <input type='hidden' name='delete' value='{$product['ID']}'>
-                            <a href='' class='btn btn-danger ms-auto mb-5'>Очистить корзину</a>
-                        </form>
-                       </div>
-                     </div>
-                    </div>
-                    ";
+                    <div class='col'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='{$product['Image']}' class='card-img-top' alt='{$product['Name']}' style='height: 200px; object-fit: cover;'>
+                            <div class='card-body d-flex flex-column'>
+                                <h5 class='card-title text-center text-primary fw-bold'>{$product['Name']}</h5>
+                                <div class='mt-auto mb-1'>
+                                    <p class='card-text text-center text-muted'>Цена: <span class='fw-bold text-success'>{$product['price']} ₽</span></p>
+                                </div>
+                                <form action='' method='POST'>
+                                    <input type='hidden' name='delete' value='{$product['ID']}'>
+                                    <button type='submit' class='btn btn-danger w-100'>Удалить из корзины</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>";
+                    $total_price += $product['price'];
                 }
-             }
-             $total_price = 0;
-             if(isset($_SESSION['cart'])) {
-                 $product_id = array_keys($_SESSION['cart']);
-                 $product_id = implode(', ', $product_id);
-                 $sql = "SELECT * FROM categories WHERE ID IN ($product_id)";
-                 $stmt = $conn->prepare($sql);
-                 $stmt->execute();
-                 $result = $stmt->get_result();
-                 while($product = $result->fetch_assoc()) {
-                     $total_price += $product['price'];
-                 }
-             }
-             ?>
+                echo '</div>';
+                ?>
+                <div class="container d-flex align-items-center mt-4">
+                    <p class="text-start mb-0">Общая сумма: 
+                        <span class="fw-bold ms-2 me-1 text-success"><?= $total_price ?></span> руб.
+                    </p>
+                    <div class="ms-auto d-flex">
+                        <form action="purchase/order" method="POST" class="ms-1">
+                            <input type="hidden" name="total_price" value="<?= $total_price ?>">
+                            <button type="submit" class="btn btn-primary mb-5">Оформить заказ</button>
+                        </form>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
-    </div>
-</div>
-<hr>
-<div class="container d-flex">
-    <p class="text-start">Общая сумма:<?= '<p class="fw-bold ms-2 me-1 text-success">'.$total_price."</p>" ?>  руб.</p>
-    <div class="column-gap ms-auto d-flex">
-    <form class="ms-1" action="" method="POST">
-       <input type="hidden" name="" value="">
-       <a href="" class="btn btn-primary ms-auto mb-5">Оформить заказ</a>
-    </form>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.js"></script>

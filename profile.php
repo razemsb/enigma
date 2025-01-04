@@ -208,8 +208,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['avatar'])) {
                             <span>Статус:</span>
                             <span><?php echo $user['is_active'] == 'active' ? 'Активен' : 'Заблокирован'; ?></span>
                         </li>
-                        <li >
-                            <span class="user-info-item d-flex justify-content-between py-2 border-bottom">Количество заказов:</span>
+                        <li class="user-info-item d-flex justify-content-between py-2 border-bottom">
+                            <span>Количество заказов:</span>
                             <span><?php echo htmlspecialchars($user['orders_count']); ?></span>
                         </li>
                     </ul>
@@ -218,6 +218,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['avatar'])) {
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <div class="container mt-5">
+        <h2 class="text-center mb-3">Мои заказы</h2>
+        <div class="row justify-content-center">
+        <?php
+            $query = "SELECT * FROM orders WHERE user_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('i', $_SESSION['user_id']);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            if ($result->num_rows > 0) {
+                while($order = $result->fetch_assoc()) {
+                    echo '<div class="col-lg-4 col-md-6 col-sm-12 mt-3">';
+                    echo '<div class="card shadow-sm border-0 rounded-4">';
+                    echo '<div class="card-body p-3">';
+                    echo '<h5 class="card-title text-center mb-2">Заказ #' . $order['ID'] . '</h5>';
+                    echo '<p class="card-text text-center">Дата: ' . date('d.m.Y', strtotime($order['order_date'])) . ' ' . '</p>';
+                    $product_ids = explode(', ', $order['products']);
+                    echo '<p class="card-text text-center">Товары: ';
+                    $products_list = [];
+                    foreach ($product_ids as $product_id) {
+                        $sql = "SELECT * FROM categories WHERE ID = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param('i', $product_id);
+                        $stmt->execute();
+                        $product_result = $stmt->get_result();
+                        while ($product = $product_result->fetch_assoc()) {
+                            $products_list[] = $product['Name'];
+                        }
+                    }
+                    echo implode(', ', $products_list); 
+                    echo '</p>';
+                    echo '<p class="card-text text-center">Стоимость: ' . $order['total_price'] . ' руб.</p>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            } else {
+                echo '<p class="text-center">У вас нет заказов.</p>';
+            }
+            ?>
         </div>
     </div>
 </div>
