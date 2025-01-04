@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Янв 04 2025 г., 10:38
+-- Время создания: Янв 04 2025 г., 13:40
 -- Версия сервера: 5.7.24
 -- Версия PHP: 7.4.1
 
@@ -141,16 +141,18 @@ CREATE TABLE `orders` (
   `user_id` int(11) NOT NULL,
   `total_price` int(11) NOT NULL,
   `products` int(11) NOT NULL,
-  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Name` varchar(60) NOT NULL,
+  `Phone` varchar(15) NOT NULL,
+  `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
-INSERT INTO `orders` (`ID`, `user_id`, `total_price`, `products`, `order_date`) VALUES
-(1, 11, 15000, 17, '2025-01-04 10:16:51'),
-(2, 11, 25000, 15, '2025-01-04 10:16:51');
+INSERT INTO `orders` (`ID`, `user_id`, `total_price`, `products`, `order_date`, `Name`, `Phone`, `Email`) VALUES
+(1, 11, 18000, 25, '2025-01-04 13:39:27', 'Иванов Иван Иванович', '79777777777', 'admin@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -256,7 +258,7 @@ INSERT INTO `users` (`ID`, `Login`, `Password`, `Email`, `avatar`, `orders_count
 (8, 'admin_beta', '$2y$10$rxXLmOboyP4HH7P2X16aPenPOYH9QiGSjfePUvgkGa222YiRd5DOW', 'enigma.none6@yandex.ru', 'uploads/basic_avatar.webp', 0, '2024-12-10 22:12:39', 'admin', 'active'),
 (9, 'hoi', '$2y$10$Og5O2BIkuNXYVNvceHdjr.a1Nte/Ugi26jpTMUb8bnP2O6qPZ8uCi', 'yijojiijiojiojij@gmail.com', 'uploads/basic_avatar.webp', 0, '2024-12-12 14:41:29', 'user', 'active'),
 (10, 'administrator', '$2y$10$EsWUTVPS2gMU0I.EM70SzumTwJ2mTgc80TdeCrrmtkGMddRULOhRW', 'administrator@gmail.com', 'uploads/avatar_67632d09a15607.44720468.jpeg', 0, '2024-12-18 23:11:49', 'admin', 'active'),
-(11, 'razemsb', '$2y$10$vtenF0Y7rRRJZvmIxPzXFedy47OgD1ELMHxkCJcKWOWZ0eDDFrD5a', 'maxim1xxx363@gmail.com', 'uploads/avatar_676453ff7a25b3.46530517.jpeg', 1, '2024-11-29 12:15:55', 'system_admin', 'active'),
+(11, 'razemsb', '$2y$10$vtenF0Y7rRRJZvmIxPzXFedy47OgD1ELMHxkCJcKWOWZ0eDDFrD5a', 'maxim1xxx363@gmail.com', 'uploads/avatar_676453ff7a25b3.46530517.jpeg', 25, '2024-11-29 12:15:55', 'system_admin', 'active'),
 (40, 'ADMIN', '$2y$10$g515VWTj3UCud50YOZ27RedlOuPhyYZNv50cJplqYuCNxtMEsYjJe', 'zhaba@gmail.com', 'uploads/basic_avatar.webp', 0, '2024-12-05 14:55:06', 'user', 'active'),
 (41, 'razems9999999b', '$2y$10$nxMDdO1Op6uA5SegbsFnreXXdUn0hbBfo3Jg.hJ.Ls919yFjfx0Iq', 'maxim1xxx3693@gmail.com', 'uploads/basic_avatar.webp', 0, '2024-12-26 17:51:40', 'user', 'active'),
 (42, 'punknotdead', '$2y$10$c3viLdBUui/pg.Ft3q5DNefEcYFvQPOKY.fiiC/sMSkjANj9cEGb.', 'onijnknjk@gmail.com', 'uploads/basic_avatar.webp', 0, '2024-12-26 21:44:00', 'user', 'active');
@@ -356,7 +358,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `support_replies`

@@ -378,3 +378,7 @@ body.dark-theme #theme-toggle {
     border: none;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+body.dark-theme .modal-body, .modal-header, .modal-footer {
+    background-color: #121212!important;
+    color: white!important;
+}

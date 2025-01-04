@@ -161,13 +161,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <span class="fw-bold ms-2 me-1 text-success"><?= $total_price ?></span> руб.
                     </p>
                     <div class="ms-auto d-flex">
-                        <form action="purchase/order" method="POST" class="ms-1">
+                        <form action="" method="POST" class="ms-1">
                             <input type="hidden" name="total_price" value="<?= $total_price ?>">
-                            <button type="submit" class="btn btn-primary mb-5">Оформить заказ</button>
+                            <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#orderModal">Оформить заказ</button>
                         </form>
                     </div>
                 </div>
             <?php endif; ?>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Введите данные для заказа</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <form action="purchase/order" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="total_price" value="<?= $total_price ?>">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">ФИО</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Телефон</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Электронная почта</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
