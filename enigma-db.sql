@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Дек 19 2024 г., 16:58
+-- Время создания: Янв 04 2025 г., 10:38
 -- Версия сервера: 5.7.24
 -- Версия PHP: 7.4.1
 
@@ -62,17 +62,11 @@ CREATE TABLE `admin_messages` (
 --
 
 INSERT INTO `admin_messages` (`message_id`, `sender_admin_id`, `receiver_admin_id`, `message`, `sent_at`) VALUES
-(15, 1, 6, 'сосал?', '2024-12-05 21:34:08'),
-(16, 6, 1, 'иди нахуй', '2024-12-05 21:34:18'),
-(17, 1, 6, 'сосать\n', '2024-12-06 09:11:15'),
-(18, 1, 6, 'хуета\n\n', '2024-12-08 20:47:33'),
-(19, 1, 7, 'соси\n', '2024-12-10 16:19:01'),
-(20, 7, 1, 'сам соси', '2024-12-10 16:20:03'),
-(21, 1, 6, 'иди нахуй долбаеб', '2024-12-10 16:31:01'),
-(22, 1, 8, 'ЙОУ\n', '2024-12-10 19:37:45'),
-(23, 8, 1, 'йоу\n', '2024-12-10 19:38:24'),
-(24, 1, 8, 'йоу\n', '2024-12-10 23:36:16'),
-(25, 1, 6, 'йоу\n', '2024-12-13 18:07:01');
+(26, 11, 6, 'йоу\n', '2024-12-26 17:36:04'),
+(27, 11, 6, 'йоу\n', '2024-12-26 17:40:32'),
+(28, 11, 6, 'йоу', '2024-12-26 18:18:34'),
+(29, 11, 6, 'йоу', '2024-12-27 19:50:19'),
+(30, 11, 6, 'йоу\n', '2025-01-03 16:41:39');
 
 -- --------------------------------------------------------
 
@@ -139,6 +133,28 @@ INSERT INTO `chat` (`id`, `user_id`, `admin_id`, `message`, `sender`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `orders`
+--
+
+CREATE TABLE `orders` (
+  `ID` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `total_price` int(11) NOT NULL,
+  `products` int(11) NOT NULL,
+  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`ID`, `user_id`, `total_price`, `products`, `order_date`) VALUES
+(1, 11, 15000, 17, '2025-01-04 10:16:51'),
+(2, 11, 25000, 15, '2025-01-04 10:16:51');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `support_replies`
 --
 
@@ -149,6 +165,20 @@ CREATE TABLE `support_replies` (
   `reply_message` text NOT NULL,
   `reply_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `support_replies`
+--
+
+INSERT INTO `support_replies` (`reply_id`, `ticket_id`, `admin_id`, `reply_message`, `reply_date`) VALUES
+(1, 1, 11, 'йоу!!', '2024-12-30 12:29:11'),
+(2, 2, 11, 'гойда славяне', '2025-01-02 06:36:05'),
+(3, 2, 11, 'гойда славяне', '2025-01-02 06:36:39'),
+(4, 2, 11, 'гойда славяне', '2025-01-02 06:36:50'),
+(5, 2, 11, 'гойда славяне', '2025-01-02 06:37:16'),
+(6, 2, 11, 'гойда славяне', '2025-01-02 06:37:46'),
+(7, 2, 11, 'гойда славяне', '2025-01-02 06:37:57'),
+(8, 2, 11, 'гойда славяне', '2025-01-02 06:38:19');
 
 -- --------------------------------------------------------
 
@@ -164,6 +194,14 @@ CREATE TABLE `support_tickets` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `support_tickets`
+--
+
+INSERT INTO `support_tickets` (`ticket_id`, `user_id`, `message`, `status`, `created_at`, `updated_at`) VALUES
+(1, 11, 'йоу', 'closed', '2024-12-30 12:28:58', '2024-12-30 12:29:11'),
+(2, 11, 'гойда', 'closed', '2025-01-02 06:27:36', '2025-01-02 06:36:05');
 
 -- --------------------------------------------------------
 
@@ -211,7 +249,6 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `Login`, `Password`, `Email`, `avatar`, `orders_count`, `date_reg`, `is_admin`, `is_active`) VALUES
-(1, 'razemsb', '$2y$10$vtenF0Y7rRRJZvmIxPzXFedy47OgD1ELMHxkCJcKWOWZ0eDDFrD5a', 'maxim1xxx363@gmail.com', 'uploads/avatar_6762d3c1ef8b40.28897439.jpeg', 0, '2024-11-29 12:15:55', 'system_admin', 'active'),
 (3, 'razer', '$2y$10$AimgRe7hrXDEp1O1g1aJHejPBmZImDQw9GIkzivAOdMtYGOwiyv1C', 'enigma.none@yandex.ru', 'uploads/basic_avatar.webp', 0, '2024-12-05 13:30:38', 'user', 'active'),
 (5, '111', '$2y$10$lFu0Cp0dBDpNlIhwWoktn.eIg3GhUdczxdrczgUCLhtA.K7Nr4TFu', '111@gmail.com', 'uploads/basic_avatar.webp', 0, '2024-12-05 15:53:27', 'user', 'active'),
 (6, 'minotaur', '$2y$10$vtenF0Y7rRRJZvmIxPzXFedy47OgD1ELMHxkCJcKWOWZ0eDDFrD5a', 'kamikaze_dolbaeb@gmail.com', 'uploads/avatar_6751badd22dc16.22169590.png', 0, '2024-12-05 17:34:21', 'admin', 'active'),
@@ -219,7 +256,10 @@ INSERT INTO `users` (`ID`, `Login`, `Password`, `Email`, `avatar`, `orders_count
 (8, 'admin_beta', '$2y$10$rxXLmOboyP4HH7P2X16aPenPOYH9QiGSjfePUvgkGa222YiRd5DOW', 'enigma.none6@yandex.ru', 'uploads/basic_avatar.webp', 0, '2024-12-10 22:12:39', 'admin', 'active'),
 (9, 'hoi', '$2y$10$Og5O2BIkuNXYVNvceHdjr.a1Nte/Ugi26jpTMUb8bnP2O6qPZ8uCi', 'yijojiijiojiojij@gmail.com', 'uploads/basic_avatar.webp', 0, '2024-12-12 14:41:29', 'user', 'active'),
 (10, 'administrator', '$2y$10$EsWUTVPS2gMU0I.EM70SzumTwJ2mTgc80TdeCrrmtkGMddRULOhRW', 'administrator@gmail.com', 'uploads/avatar_67632d09a15607.44720468.jpeg', 0, '2024-12-18 23:11:49', 'admin', 'active'),
-(40, 'ADMIN', '$2y$10$g515VWTj3UCud50YOZ27RedlOuPhyYZNv50cJplqYuCNxtMEsYjJe', 'zhaba@gmail.com', 'uploads/basic_avatar.webp', 0, '2024-12-05 14:55:06', 'user', 'active');
+(11, 'razemsb', '$2y$10$vtenF0Y7rRRJZvmIxPzXFedy47OgD1ELMHxkCJcKWOWZ0eDDFrD5a', 'maxim1xxx363@gmail.com', 'uploads/avatar_676453ff7a25b3.46530517.jpeg', 1, '2024-11-29 12:15:55', 'system_admin', 'active'),
+(40, 'ADMIN', '$2y$10$g515VWTj3UCud50YOZ27RedlOuPhyYZNv50cJplqYuCNxtMEsYjJe', 'zhaba@gmail.com', 'uploads/basic_avatar.webp', 0, '2024-12-05 14:55:06', 'user', 'active'),
+(41, 'razems9999999b', '$2y$10$nxMDdO1Op6uA5SegbsFnreXXdUn0hbBfo3Jg.hJ.Ls919yFjfx0Iq', 'maxim1xxx3693@gmail.com', 'uploads/basic_avatar.webp', 0, '2024-12-26 17:51:40', 'user', 'active'),
+(42, 'punknotdead', '$2y$10$c3viLdBUui/pg.Ft3q5DNefEcYFvQPOKY.fiiC/sMSkjANj9cEGb.', 'onijnknjk@gmail.com', 'uploads/basic_avatar.webp', 0, '2024-12-26 21:44:00', 'user', 'active');
 
 --
 -- Индексы сохранённых таблиц
@@ -250,6 +290,12 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `chat`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Индексы таблицы `support_replies`
@@ -292,7 +338,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT для таблицы `admin_messages`
 --
 ALTER TABLE `admin_messages`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT для таблицы `categories`
@@ -307,16 +353,22 @@ ALTER TABLE `chat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT для таблицы `support_replies`
 --
 ALTER TABLE `support_replies`
-  MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `reply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `support_tickets`
 --
 ALTER TABLE `support_tickets`
-  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `tickets`
@@ -328,7 +380,7 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
